@@ -93,7 +93,7 @@ export function summarizefile()
 
  var textorg = demo.innerHTML;
     var iv = Base64.parse("");
-    fetch('https://oszd3wrcv4.execute-api.us-east-1.amazonaws.com/default/textauth').then((response) => response.json())
+    fetch('YOUR LAMBDA FUNCTION').then((response) => response.json())
     .then ((data) =>  {
         decrypt1 = data
 
