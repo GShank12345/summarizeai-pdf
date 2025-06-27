@@ -80,7 +80,7 @@ export function loadfile(element)
               }
 }
 
-export function summarizefile()
+export async function summarizefile()
 {
     var textkey = ""
     var decrypt1 = ""
@@ -93,7 +93,7 @@ export function summarizefile()
 
  var textorg = demo.innerHTML;
     var iv = Base64.parse("");
-    fetch('YOUR LAMBDA FUNCTION').then((response) => response.json())
+  await fetch('YOUR LAMBDA FUNCTION').then((response) => response.json())
     .then ((data) =>  {
         decrypt1 = data
 
@@ -106,7 +106,8 @@ export function summarizefile()
             Console.log("text key error")
         }
         demo1.document.body.innerHTML = "<b><h2>Please wait...Summarizing</h2></b>"
-        fetch('https://api.openai.com/v1/chat/completions', {
+       (async () => {
+            await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -150,3 +151,4 @@ export function summarizefile()
     })
 
 }
+ })()
