@@ -26,5 +26,21 @@ API Function Call - Generate API trigger for the Lambda function and include it 
  The application can be run as a standalone in the Linux terminal using the command 
 ** npx vite**
 
+## Help
+
+- Increase the token parameter model to extract more text from the pages of the .pdf file.
+
+## Authors
+
+Gomathy Shankaran
+totsfun@yahoo.com
+
+
+
+
+## License
+
+This project is licensed under the Apache License - see the LICENSE.md file for details
+
 
 
