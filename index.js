@@ -26,10 +26,8 @@ organization: "org-e28gyBsgWKAWxOgglKnI6IXI",
 console.log("conf",config.apiKey)
 // apikey = config.apiKey
 exports.handler = async function(event, context, callback) {
+  apikey1 = config.apiKey
     var newkey =   AES.encrypt(apikey1,"",{})
-    apikey1 = config.apiKey
-    console.log('hello ',newkey)
-    exports.apikey1 = apikey1
     return {
     statusCode: 200,
     body: JSON.stringify(newkey.toString(), null, 2)
@@ -38,11 +36,4 @@ exports.handler = async function(event, context, callback) {
     }
 }
 
-// module.exports.handler = { apikey1 };
-//module.exports.handler();
-//return JSON.stringify(apikey1, null, 2)
-var serialize = function(object) {
-  return JSON.stringify(apikey1, null, 2)
-   
-}
 
