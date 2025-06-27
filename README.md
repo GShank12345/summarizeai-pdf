@@ -11,4 +11,13 @@ vite - for running the application,
 crypto-js -  for encrypting the OpenAI and hugging face model keys, 
 Lambda dependencies: ask-sdk-core, ask-sdk-model
 
-Executing program - Rune the url in amplify - https://main.d1fcx4ofg237er.amplifyapp.com/
+### Installing
+
+The application is deployed in AWS Amplify link 
+Run the url in amplify - https://main.d1fcx4ofg237er.amplifyapp.com/
+
+Modifications
+Include environment variables for the Lambda function for the OpenAI key.
+API Function Call - Generate API trigger for the Lambda function and include it in your Javascript application to include the 'https' url to fetch. 
+
+
