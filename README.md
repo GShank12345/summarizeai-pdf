@@ -20,4 +20,11 @@ Modifications
 Include environment variables for the Lambda function for the OpenAI key.
 API Function Call - Generate API trigger for the Lambda function and include it in your Javascript application to include the 'https' url to fetch. 
 
+### Executing program
+
+
+ The application can be run as a standalone in the Linux terminal using the command 
+** npx vite**
+
+
 
