@@ -1,7 +1,7 @@
 {
   "name": "summarizeapp",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -20,6 +20,8 @@
     "vite": "^6.3.5"
   },
   "dependencies": {
-    "aws-amplify": "^6.15.0"
+    "aws-amplify": "^6.15.0",
+    "mammoth": "^1.9.1"
   }
 }
+
