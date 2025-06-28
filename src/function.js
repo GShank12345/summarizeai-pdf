@@ -5,6 +5,7 @@ import AES from 'crypto-js/aes';
 import Utf8 from 'crypto-js/enc-utf8'
 import  mammoth  from "mammoth"
 
+var aud1 = ""
 function beforeAfter() {
   document.getElementById('compare').style.width = document.getElementById('slider').value + "%";
 }
@@ -169,8 +170,10 @@ export function summarizefile()
                 }
                 else
                 {
+                    aud1 = data.choices[0].message.content
                     console.log(data.choices[0].message.content);
-                    demo1.document.body.innerHTML = "done"
+                  //  demo1.document.body.innerHTML = "done"
+                    aud1 = data.choices[0].message.content
                     demo1.document.body.innerHTML = "<h3><b>" + data.choices[0].message.content + "</b></h3>"
                 }
             })
@@ -187,9 +190,9 @@ export function summarizefileaudio()
    }
    else
    {
-       var aud = demo1.document.body.innerHTML
+      
        // tts.speak( demo1.document.body.innerText, {'voiceName': 'Samantha','rate':0.8,'pitch':0.8});
-       const utterance = new SpeechSynthesisUtterance(aud);
+       const utterance = new SpeechSynthesisUtterance(aud1);
                        speechSynthesis.speak(utterance);
    }
 }
