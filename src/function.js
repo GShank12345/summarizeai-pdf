@@ -3,6 +3,7 @@ import CryptoJS from 'crypto-js'
 import Base64 from 'crypto-js/enc-base64';
 import AES from 'crypto-js/aes';
 import Utf8 from 'crypto-js/enc-utf8'
+import  mammoth  from "mammoth"
 
 function beforeAfter() {
   document.getElementById('compare').style.width = document.getElementById('slider').value + "%";
@@ -26,7 +27,35 @@ export function loadfile(element)
     console.log("inside==============", filename);
               var fileext = filename.split('.').pop();
     console.log("loaded================",fileext);
-              if (fileext == "pdf") {
+              if (fileext == "txt")
+              {
+                  var fileToLoad = element.files[0];
+                  var fileReader = new FileReader();
+                  fileReader.onload = function(fileLoadedEvent) {
+                      var textFromFileLoaded = fileLoadedEvent.target.result;
+                      console.log("text=======",textFromFileLoaded)
+                    demo.document.body.innerHTML = textFromFileLoaded;
+                  }
+                  fileReader.readAsText(fileToLoad, "UTF-8")
+              }
+    else if (fileext == "docx")
+    {
+        var fileToLoad = element.files[0];
+        var fileReader = new FileReader();
+        fileReader.onload = function(fileLoadedEvent) {
+            var textFromFileLoaded = fileLoadedEvent.target.result;
+            console.log("text doc=======",textFromFileLoaded)
+            mammoth.extractRawText({ arrayBuffer: textFromFileLoaded })
+                                   .then(function(result) {
+                                       demo.document.body.innerHTML = result.value; // The raw text
+                                   })
+                                   .catch(function(err) {
+                                       console.error(err);
+                                   });
+        }
+        fileReader.readAsArrayBuffer(fileToLoad)
+    }
+              else if (fileext == "pdf") {
                   var fileToLoad = element.files[0];
 
                   console.log("loaded1111================",fileToLoad.name);
@@ -80,7 +109,7 @@ export function loadfile(element)
               }
 }
 
-export async function summarizefile()
+export function summarizefile()
 {
     var textkey = ""
     var decrypt1 = ""
@@ -93,7 +122,7 @@ export async function summarizefile()
 
  var textorg = demo.innerHTML;
     var iv = Base64.parse("");
-  await fetch('YOUR LAMBDA FUNCTION').then((response) => response.json())
+    fetch('https://oszd3wrcv4.execute-api.us-east-1.amazonaws.com/default/textauth').then((response) => response.json())
     .then ((data) =>  {
         decrypt1 = data
 
@@ -106,8 +135,7 @@ export async function summarizefile()
             Console.log("text key error")
         }
         demo1.document.body.innerHTML = "<b><h2>Please wait...Summarizing</h2></b>"
-       (async () => {
-            await fetch('https://api.openai.com/v1/chat/completions', {
+        fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -117,7 +145,7 @@ export async function summarizefile()
             body: data = JSON.stringify({
                // 'model': 'gpt-3.5-turbo',
                 'model': 'o4-mini',
-                'messages': [{role: "system", content:  "Summarize the content and include the main points from the document " + demo.document.body.innerHTML}],
+                'messages': [{role: "system", content:  "Explain and summarize the content and include the main points from the document " + demo.document.body.innerHTML + ". Explain even if the content is a one liner. "}],
                // 'temperature': 0,
                 'max_completion_tokens': 40000
             })
@@ -151,4 +179,22 @@ export async function summarizefile()
     })
 
 }
- })()
+export function summarizefileaudio()
+{
+   if (demo1.document.body.innerHTML == "")
+  {
+       alert("There is no summarized text.")
+   }
+   else
+   {
+       var aud = demo1.document.body.innerHTML
+       // tts.speak( demo1.document.body.innerText, {'voiceName': 'Samantha','rate':0.8,'pitch':0.8});
+       const utterance = new SpeechSynthesisUtterance(aud);
+                       speechSynthesis.speak(utterance);
+   }
+}
+
+export function summarizefileaudiostop()
+{
+    speechSynthesis.cancel()
+}
